@@ -164,9 +164,9 @@ An additional classification task was explored in the notebook to predict whethe
     ```bash
     python -m venv venv
     # On Windows:
-    # venv\Scripts\activate
+    venv\Scripts\activate
     # On macOS/Linux:
-    # source venv/bin/activate
+    source venv/bin/activate
     ```
 
 3.  **Install dependencies:**
