@@ -1,0 +1,10 @@
+pandas
+numpy
+scikit-learn
+Flask
+Flask-CORS
+xgboost
+lightgbm
+shap
+matplotlib
+seaborn
