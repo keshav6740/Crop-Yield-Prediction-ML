@@ -51,10 +51,9 @@ Crop-Yield-Prediction-ML/
 ├── cropyield.ipynb               # Jupyter Notebook for EDA, model training, and evaluation
 ├── model.pkl                     # Saved ML model, scaler, encoders, SHAP explainer, etc.
 ├── app.log                       # Application log file (generated at runtime)
-└── static/                       # Frontend files
-    ├── index.html                # Main HTML page
-    ├── script.js                 # Client-side JavaScript
-    └── styles.css                # CSS for styling
+├── index.html                    # Main HTML page
+├── script.js                     # Client-side JavaScript
+└── styles.css                    # CSS for styling
 </pre>
 
 
