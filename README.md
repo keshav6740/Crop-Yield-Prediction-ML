@@ -43,18 +43,20 @@ This project leverages machine learning to predict crop yields based on various 
 
 ## Project Structure
 
-├── Crop-Yield-Prediction-ML/
-│ ├── README.md # This file
-│ ├── app.py # Flask application (backend)
-│ ├── crop_yield - Copy.csv # Dataset (sample provided, full dataset recommended)
-│ ├── cropyield.ipynb # Jupyter Notebook for EDA, model training, and evaluation
-│ ├── model.pkl # Saved ML model, scaler, encoders, SHAP explainer, etc.
-│ ├── requirements.txt # Python dependencies
-│ ├── app.log # Application log file (generated at runtime)
-│ └── static/ # Frontend files
-│ ├── index.html # Main HTML page
-│ ├── script.js # Client-side JavaScript
-│ └── styles.css # CSS for styling
+<pre>
+Crop-Yield-Prediction-ML/
+├── README.md                     # This file
+├── app.py                        # Flask application (backend)
+├── crop_yield - Copy.csv         # Dataset (sample provided, full dataset recommended)
+├── cropyield.ipynb               # Jupyter Notebook for EDA, model training, and evaluation
+├── model.pkl                     # Saved ML model, scaler, encoders, SHAP explainer, etc.
+├── requirements.txt              # Python dependencies
+├── app.log                       # Application log file (generated at runtime)
+└── static/                       # Frontend files
+    ├── index.html                # Main HTML page
+    ├── script.js                 # Client-side JavaScript
+    └── styles.css                # CSS for styling
+</pre>
 
 
 ## Dataset
