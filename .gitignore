@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+venv/
+.env
+env/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large files (optional - consider Git LFS for these if they are very large)
+# model.pkl
+# crop_yield.csv # If your CSV is huge and not meant to be in the repo
+
+# OS specific
+.DS_Store
+Thumbs.db
