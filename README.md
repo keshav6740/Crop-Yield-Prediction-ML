@@ -1,6 +1,6 @@
 # Enhanced Crop Yield Prediction ML Project
 
-![Crop Yield Prediction Banner](<URL_TO_A_NICE_BANNER_IMAGE_OR_LEAVE_THIS_OUT>) <!-- Optional: Create a banner image for your project -->
+![Crop Yield Prediction Banner](<banner.jpeg>) <!-- Optional: Create a banner image for your project -->
 
 This project leverages machine learning to predict crop yields based on various agricultural and environmental factors. It features an interactive web application built with Flask, advanced regression models for prediction, confidence interval estimation, and SHAP-based explainability to understand the key drivers behind each prediction.
 
