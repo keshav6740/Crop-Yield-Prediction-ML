@@ -1,9 +1,9 @@
-﻿flask
-flask-cors
-gunicorn
-pandas
-numpy
+Flask==3.0.3
+Flask-Cors==4.0.1
+gunicorn==23.0.0
+pandas==2.2.2
+numpy==1.26.4
 scikit-learn==1.5.1
-xgboost
-lightgbm
-shap
+xgboost==2.1.2
+lightgbm==4.6.0
+shap==0.48.0
