@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Yield Prediction</title>
+    <link rel="stylesheet" href='../static/styles.css'>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Enhanced Crop Yield Prediction</h1>
+            <p>Leveraging advanced ML for insightful yield forecasts</p>
+        </header>
+        
+        <main>
+            <div class="card">
+                <h2>Enter Crop Details</h2>
+                <p>Fill in the information below to get a yield prediction and insights.</p>
+                <form id="prediction-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state" required>
+                                <option value="">Loading states...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="crop-type">Crop Type</label>
+                            <select id="crop-type" name="cropType" required>
+                                <option value="">Loading crops...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="season">Season</label>
+                            <select id="season" name="season" required>
+                                <option value="">Loading seasons...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Area Cultivated (ha)</label>
+                            <input type="number" id="area" name="Area" step="0.01" required value="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="crop-year">Crop Year</label>
+                            <input type="number" id="crop-year" name="Crop_Year" required min="1997" max="2055" value="2025">
+                        </div>
+                        <div class="form-group">
+                            <label for="rainfall">Annual Rainfall (mm)</label>
+                            <input type="number" id="rainfall" name="Annual_Rainfall" required step="0.01" value="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="fertilizer">Fertilizer Used (kg/ha)</label>
+                            <input type="number" id="fertilizer" name="Fertilizer" required step="0.01" value="100000">
+                        </div>
+                        <div class="form-group">
+                            <label for="pesticide">Pesticide Used (kg/ha)</label>
+                            <input type="number" id="pesticide" name="Pesticide" required step="0.01" value="3000">
+                        </div>
+                    </div>
+                    <button type="submit" id="predict-button">Predict Yield</button>
+                </form>
+
+                <div id="loading-indicator" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Processing prediction...</p>
+                </div>
+
+                <div id="prediction-result-section" class="hidden card result-card">
+                    <h3>Prediction Results</h3>
+                    <div id="prediction-summary">
+                        <p><strong>Predicted Yield:</strong> <span id="yield-value"></span> tons/hectare</p>
+                        <p id="confidence-interval" class="hidden"><strong>Confidence Interval (90%):</strong> <span id="yield-range"></span> tons/hectare</p>
+                        <p><em>Model: <span id="model-name-display"></span></em></p>
+                    </div>
+
+                    <div id="feature-contributions-section" class="hidden">
+                        <h4>Top Factors Influencing Prediction:</h4>
+                        <ul id="feature-contributions-list"></ul>
+                    </div>
+                     <div id="historical-data-section" class="hidden">
+                        <h4>Historical Yield Data:</h4>
+                        <canvas id="historicalYieldChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src='../static/script.js'></script>
+</body>
+</html>
