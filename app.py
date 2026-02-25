@@ -62,6 +62,56 @@ def load_model_and_data():
 # Load components when the app starts
 load_model_and_data()
 
+
+def _parse_and_validate_input(payload):
+    """Validate incoming JSON and return normalized input dict for inference."""
+    if not isinstance(payload, dict):
+        raise ValueError("Request body must be a JSON object.")
+
+    required_fields = {
+        "state": str,
+        "cropType": str,
+        "season": str,
+        "Area": (int, float),
+        "Crop_Year": (int, float),
+        "Annual_Rainfall": (int, float),
+        "Fertilizer": (int, float),
+        "Pesticide": (int, float),
+    }
+
+    missing = [field for field in required_fields if field not in payload]
+    if missing:
+        raise ValueError(f"Missing required fields: {', '.join(missing)}")
+
+    normalized = {
+        "state": str(payload["state"]).strip(),
+        "cropType": str(payload["cropType"]).strip(),
+        "season": str(payload["season"]).strip(),
+    }
+
+    if not normalized["state"] or not normalized["cropType"] or not normalized["season"]:
+        raise ValueError("State, cropType, and season cannot be empty.")
+
+    mappings = model_components.get("categorical_mappings", {})
+    if normalized["state"] not in mappings.get("State", []):
+        raise ValueError(f"Unsupported state: {normalized['state']}")
+    if normalized["cropType"] not in mappings.get("Crop", []):
+        raise ValueError(f"Unsupported crop type: {normalized['cropType']}")
+    if normalized["season"] not in mappings.get("Season", []):
+        raise ValueError(f"Unsupported season: {normalized['season']}")
+
+    for num_key in ["Area", "Crop_Year", "Annual_Rainfall", "Fertilizer", "Pesticide"]:
+        try:
+            value = float(payload[num_key])
+        except (TypeError, ValueError):
+            raise ValueError(f"{num_key} must be numeric.")
+        if not np.isfinite(value):
+            raise ValueError(f"{num_key} must be a finite number.")
+        normalized[num_key] = value
+
+    normalized["Crop_Year"] = int(normalized["Crop_Year"])
+    return normalized
+
 # --- Routes ---
 @app.route('/')
 def serve_index():
@@ -85,7 +135,7 @@ def predict():
         return jsonify({'success': False, 'error': 'Server not ready, model components missing.'}), 503
 
     try:
-        data = request.get_json()
+        data = _parse_and_validate_input(request.get_json(silent=True))
         logging.info(f"Received prediction request: {data}")
 
         # ... (Your existing prediction logic here is fine) ...
@@ -111,6 +161,9 @@ def predict():
         for col, le in model_components['label_encoders'].items():
             if col in input_data.columns:
                 input_data[col] = le.transform(input_data[col])
+
+        if input_data.isnull().any().any():
+            raise ValueError("Invalid input values after preprocessing.")
         
         input_scaled = model_components['scaler'].transform(input_data)
         prediction = model_components['model'].predict(input_scaled)[0]
@@ -144,6 +197,9 @@ def predict():
         logging.info(f"Successful prediction: {response_payload}")
         return jsonify(response_payload)
         
+    except ValueError as e:
+        logging.warning(f"Validation error: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 400
     except Exception as e:
         logging.error(f"Prediction error: {str(e)}")
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -180,4 +236,4 @@ if __name__ == '__main__':
     # This part is for local execution only. 
     # A production server will call the 'app' object directly.
     port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=os.environ.get('FLASK_DEBUG') == '1', host='0.0.0.0', port=port)

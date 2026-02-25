@@ -48,12 +48,14 @@ Crop-Yield-Prediction-ML/
 ├── README.md                     # This file
 ├── app.py                        # Flask application (backend)
 ├── crop_yield.csv                # Dataset
-├── cropyield.ipynb               # Jupyter Notebook for EDA, model training, and evaluation
-├── model.pkl                     # Saved ML model, scaler, encoders, SHAP explainer, etc.
+├── main.ipynb                    # Jupyter Notebook for EDA, training, and evaluation
+├── model.pkl                     # Saved ML model and preprocessors
 ├── app.log                       # Application log file (generated at runtime)
-├── index.html                    # Main HTML page
-├── script.js                     # Client-side JavaScript
-└── styles.css                    # CSS for styling
+├── templates/
+│   └── index.html                # Main frontend template
+└── static/
+    ├── script.js                 # Client-side JavaScript
+    └── styles.css                # CSS styling
 </pre>
 
 
@@ -87,7 +89,7 @@ The primary dataset used is `crop_yield.csv`. It contains historical data on cro
 6.  **Feature Scaling:** `StandardScaler` from scikit-learn is applied to numerical features to standardize them (mean 0, variance 1) after splitting the data into training and testing sets.
 
 ### Exploratory Data Analysis (EDA)
-The `cropyield.ipynb` notebook contains visualizations and statistical summaries, including:
+The `main.ipynb` notebook contains visualizations and statistical summaries, including:
 *   Distribution of the target variable (Yield).
 *   Correlation matrix to understand linear relationships between features.
 *   Box plots showing Yield distribution across different States, Crops, and Seasons (top 10 categories).
@@ -181,7 +183,7 @@ An additional classification task was explored in the notebook to predict whethe
 
 ### Training the Model
 If `model.pkl` is not present or you wish to retrain the model with new data or parameters:
-1.  Open the `cropyield.ipynb` Jupyter Notebook.
+1.  Open the `main.ipynb` Jupyter Notebook.
 2.  Ensure the `crop_yield.csv` file is correctly referenced.
 3.  Run all cells in the notebook. This will perform EDA, train the regression and quantile models, create the SHAP explainer, and save all necessary components into `model.pkl`.
     *The classification part of the notebook is for analysis and its model is not currently saved in the main `model.pkl` for the app.*
